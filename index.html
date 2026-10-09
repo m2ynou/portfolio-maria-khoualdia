@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maria Khoualdia — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Couleurs (je change ici si je veux) ---------- */
+  :root {
+    --fond: #0e0c0d;
+    --carte: #181415;
+    --texte: #e9e2dc;
+    --gris: #a79d97;
+    --bronze: #a8805a;
+    --trait: #2b2426;
+
+    /* réglages pour les téléphones : ne pas toucher */
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* ---------- Réglages de base ---------- */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* défilement doux quand on clique sur un lien */
+  html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
+
+  body {
+    font-family: Inter, system-ui, sans-serif;
+    background: var(--fond);
+    color: var(--texte);
+    line-height: 1.7;
+  }
+
+  /* police élégante pour les titres */
+  .serif { font-family: "Cormorant Garamond", Georgia, serif; }
+
+  /* ---------- Menu du haut (reste collé en haut de l'écran) ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 5;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 1.6rem;
+    padding: .9rem 1rem;
+    background: rgba(14, 12, 13, .9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--trait);
+    font-size: .85rem; letter-spacing: .12em; text-transform: uppercase;
+  }
+  nav a { color: var(--gris); text-decoration: none; }
+  nav a:hover { color: var(--bronze); }
+
+  /* ---------- En-tête (mon nom) ---------- */
+  .hero {
+    min-height: 82vh;   /* hauteur de l'en-tête */
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    padding: 4rem 1.5rem;
+    /* lueur douce en haut de la page */
+    background: radial-gradient(ellipse at 50% 0%, #2a1c1c 0%, var(--fond) 65%);
+    animation: apparition 1s ease;
+  }
+  .hero small { color: var(--bronze); font-size: .8rem; letter-spacing: .3em; text-transform: uppercase; }
+  .hero p { max-width: 34rem; color: var(--gris); font-size: 1.15rem; }
+
+  /* mon nom : la taille s'adapte à l'écran */
+  h1 { font-size: clamp(3rem, 10vw, 6rem); font-weight: 500; line-height: 1; margin: 1rem 0; }
+
+  /* l'en-tête apparaît en douceur au chargement */
+  @keyframes apparition {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* ---------- Sections et titres ---------- */
+  section {
+    max-width: 52rem; margin: 0 auto;   /* colonne centrée */
+    padding: 4.5rem 1.5rem;
+    border-top: 1px solid var(--trait);
+  }
+  h2 { font-size: 2.4rem; font-weight: 500; margin-bottom: 1.5rem; }
+
+  /* petit trait bronze sous chaque titre */
+  h2::after {
+    content: ""; display: block;
+    width: 3rem; height: 1px; margin-top: .7rem;
+    background: var(--bronze);
+  }
+
+  /* la section Contact est centrée */
+  .contact { text-align: center; }
+  .contact h2 { display: inline-block; }
+
+  /* ---------- Les cartes (expérience et atouts) ---------- */
+  .card {
+    background: var(--carte);
+    padding: 1.6rem;
+    border: 1px solid var(--trait);
+    border-left: 2px solid var(--bronze);   /* liseré bronze à gauche */
+  }
+  .card h3 { font-size: 1.6rem; font-weight: 600; margin-bottom: .3rem; }
+  .card p { color: var(--gris); margin-top: .4rem; }
+
+  /* petit mot-clé au-dessus d'un titre de carte */
+  .tag { color: var(--bronze); font-size: .8rem; letter-spacing: .15em; text-transform: uppercase; }
+
+  /* ---------- Grille des atouts ---------- */
+  /* cartes de 14rem minimum, elles passent à la ligne s'il n'y a pas la place */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; }
+  .grid .card { border-left: 1px solid var(--trait); }   /* pas de liseré bronze ici */
+  .grid h3 { font-size: 1.3rem; }
+
+  /* ---------- Bouton ---------- */
+  .btn {
+    display: inline-block; margin-top: 2rem;
+    padding: .8rem 1.8rem;
+    border: 1px solid var(--bronze);
+    color: var(--bronze); text-decoration: none;
+    font-size: .85rem; letter-spacing: .1em; text-transform: uppercase;
+    transition: .25s;   /* animation douce au survol */
+  }
+  .btn:hover { background: var(--bronze); color: var(--fond); }
+
+  /* ---------- Bas de page ---------- */
+  footer {
+    text-align: center; color: var(--gris); font-size: .85rem;
+    padding: 2.5rem 1rem;
+    border-top: 1px solid var(--trait);
+  }
+
+  /* ---------- Animations au défilement ---------- */
+  /* au départ, les éléments sont invisibles et un peu plus bas */
+  .js .apparait {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  /* quand ils arrivent à l'écran, ils remontent en douceur */
+  .js .apparait.visible { opacity: 1; transform: none; }
+
+  /* le bouton garde son animation au survol */
+  .js .btn.apparait { transition: opacity .8s ease, transform .8s ease, background .25s, color .25s; }
+
+  /* le petit trait bronze sous les titres se dessine */
+  .js h2.apparait::after { width: 0; transition: width 1s ease .4s; }
+  .js h2.visible::after { width: 3rem; }
+
+  /* les cartes de la grille arrivent l'une après l'autre */
+  .grid .card:nth-child(2) { transition-delay: .15s; }
+  .grid .card:nth-child(3) { transition-delay: .3s; }
+  .grid .card:nth-child(4) { transition-delay: .45s; }
+
+  /* pour les personnes qui ont désactivé les animations sur leur appareil */
+  @media (prefers-reduced-motion: reduce) {
+    .js .apparait { opacity: 1; transform: none; transition: none; }
+    .js h2.apparait::after { width: 3rem; transition: none; }
+  }
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+<nav><a href="#apropos">À propos</a><a href="#experience">Expérience</a><a href="#atouts">Atouts</a><a href="#contact">Contact</a></nav>
+
+<header class="hero">
+<small>Élève de 3ème · Portfolio</small>
+<h1 class="serif">Maria Khoualdia</h1>
+<p>À la recherche d'un stage d'observation dans le théâtre. Curieuse, cultivée, et à l'aise avec le public.</p>
+<a class="btn" href="#contact">Me contacter</a>
+</header>
+
+<section id="apropos">
+<h2 class="serif">À propos</h2>
+<p>Je m'appelle Maria, je suis en classe de 3ème. Passionnée par les arts de la scène, je souhaite découvrir les coulisses du théâtre : la préparation d'un spectacle, le travail des équipes, l'accueil du public.</p>
+<p style="margin-top:1rem">Je parle arabe et français, je comprends l'anglais écrit, et j'ai une grande curiosité culturelle.</p>
+</section>
+
+<section id="experience">
+<h2 class="serif">Expérience</h2>
+<div class="card">
+<span class="tag">Musique · Scène · Télévision</span>
+<h3 class="serif">Membre du groupe Vaucluse Démos</h3>
+<p>J'ai fait partie d'un groupe de musique qui est passé à la télévision. Cette expérience m'a appris à travailler en équipe, à répéter avec rigueur et à me présenter devant un public et des caméras.</p>
+</div>
+</section>
+
+<section id="atouts">
+<h2 class="serif">Mes atouts</h2>
+<div class="grid">
+<div class="card"><h3 class="serif">Culture générale</h3><p>Un vrai goût pour les arts, les histoires et les cultures.</p></div>
+<div class="card"><h3 class="serif">Sens du contact</h3><p>Je sais accueillir et convaincre avec le sourire.</p></div>
+<div class="card"><h3 class="serif">Esprit d'équipe</h3><p>Habituée au travail collectif grâce à la musique.</p></div>
+<div class="card"><h3 class="serif">Langues</h3><p>Arabe et français courants, anglais écrit compris.</p></div>
+</div>
+</section>
+
+<section id="contact" class="contact">
+<h2 class="serif">Contact</h2>
+<p>Un théâtre, une compagnie, une équipe prête à m'accueillir en stage ?<br>Écrivez-moi, je serai ravie d'échanger.</p>
+<a class="btn" href="mailto:khoumayei@gmail.com">khoumayei@gmail.com</a>
+</section>
+
+<footer>© Maria Khoualdia</footer>
+
+<script>
+  // Animations au défilement : chaque élément apparaît quand il arrive à l'écran.
+  // Pour animer autre chose, ajoute son sélecteur dans la liste ci-dessous.
+  const elements = document.querySelectorAll("section > h2, section > p, section > .btn, .card");
+
+  const observateur = new IntersectionObserver((entrees) => {
+    entrees.forEach((entree) => {
+      if (entree.isIntersecting) {
+        entree.target.classList.add("visible");
+        observateur.unobserve(entree.target);   // on n'anime qu'une seule fois
+      }
+    });
+  }, { threshold: 0.15 });   // se déclenche quand 15 % de l'élément est visible
+
+  elements.forEach((el) => {
+    el.classList.add("apparait");
+    observateur.observe(el);
+  });
+</script>
+</body>
+</html>
